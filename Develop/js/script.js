@@ -15,6 +15,8 @@ var tableRow = $("<tr>"); // create table
 var tableData1 = $("<td>"); // create table
 var tableData2 = $("<td>"); // create table
 var tableData3 = $("<td>"); // create table
+var textArea = $("<textarea>") // create textarea, source: https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea
+// var italics = $("<i>") // create italics for saveBtn i:hover
 
 var hours = ["      9am ", "    10am ", "    11am ", "    12pm ", "      1pm ", "      2pm ", "      3pm ", "      4pm ", "      5pm "]
 
@@ -27,12 +29,13 @@ function displayDate() { // use currentDay id
 
 displayDate();
 
-var numCurrentTime;
+var numCurrentTime; // for function displayTime() input
 
 function displayTime() { // use currentDay id
     var currentTime = moment().format("H");
+    // did console.log(typeof currentTime) to check if it was a number, it was a string
 
-    return Number(currentTime); // source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number
+    return Number(currentTime); // to convert string to number, source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number
   }
 
   displayTime(numCurrentTime); // global variable goes into the function so that it gets "return Number(currentTime)" out of it
@@ -40,28 +43,22 @@ function displayTime() { // use currentDay id
 // timeBlocks... seems to use tables and seems to want 9am to 5pm as "standard business hours"
 
 container.append(table);
-// table.append(tableRow);
-// tableRow.append(tableData1);
-// tableRow.append(tableData2);
-// tableRow.append(tableData3);
 
-
-
-// tableData1.text("       9am ");
-// tableData2.text("                                      ");
-// tableData3.text("    🖫     ");
 
 for (var i = 0; i < hours.length; i++) {
     var tableRow = $("<tr>"); // create table
     var tableData1 = $("<td>"); // create table
     var tableData2 = $("<td>"); // create table
+    var textArea = $("<textarea>") // create textarea
     var tableData3 = $("<td>"); // create table
 
     tableRow.addClass("row")
     tableData1.addClass("hour");
-    
     tableData3.addClass("saveBtn");
 
+    // this wasn't needed in the end for issues encountered when reducing screen width
+    // textArea.addClass("form-control") // bootstrap, to deal with screen size change source: https://getbootstrap.com/docs/4.0/components/forms/
+    
     var hourLabel = i + 9;
     
     if (hourLabel === numCurrentTime) {
@@ -72,16 +69,16 @@ for (var i = 0; i < hours.length; i++) {
         tableData2.addClass("description future");
     }
 
-    
-    // tableData2.attr('id', hourLabel);
-
     table.append(tableRow);
     tableRow.append(tableData1);
     tableRow.append(tableData2);
+    tableData2.append(textArea);
     tableRow.append(tableData3);
 
+    textArea.attr("rows", "1") // needs to be kept to 1 row or else save button is obscured when screen width decreases
+    textArea.attr("cols", "100")
+
     tableData1.text(hours[i]);
-    tableData2.text("                                      ");
     tableData3.text("    🖫     "); // source of unicode: https://unicode-table.com/en/1F5AB/
 
 
