@@ -85,7 +85,7 @@ for (var i = 0; i < hours.length; i++) { // using for loop to generate each time
 
     // saveButton.addClass('<i class="fa-solid fa-floppy-disk"></i>')
 
-    textArea.attr("rows", "1") // needs to be kept to 1 row or else save button is obscured when screen width decreases
+    textArea.attr("rows", "3") // needs to be kept to 1 row or else save button is obscured when screen width decreases
     textArea.attr("cols", "100")
     textArea.attr("id", i+9)
 
@@ -140,7 +140,25 @@ $("table").on('click', '.saveBtn button', function (event) {
 
   });
 
-  
+
+  function wakeUp() {
+      
+      var obj = JSON.parse(localStorage.getItem("planner"));
+      
+      y = 0; // the iterator
+
+      // wasted time trying [for in] loop to work with $("textarea").each(function(){} in different ways when I ended up figuring out a simpler solution
+      for (var j in obj) { // source: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in
+            
+        $("textarea").eq(y).text(obj[j]); // goes through each textarea element by eq(y) like an array changes the text content based on the iteration in the for in loop
+        y++; // increases y to be able to change to the next element
+      }
+
+
+}
+
+wakeUp();
+
 
 // next, add button, .on, setItem, getItem, event.preventDefault
 
