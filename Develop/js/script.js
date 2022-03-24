@@ -1,4 +1,3 @@
-// possible variables due to CSS
 var jumbotron = $(".jumbotron"); // class selector
 var lead = $(".lead"); // class selector
 var currentDayEl = $("#currentDay"); // element selector
@@ -96,7 +95,7 @@ for (var i = 0; i < hours.length; i++) { // using for loop to generate each time
     
 }
 
-var planner = {
+var planner = { // to store text entered
     nineAm: "",
     tenAm: "",
     elevenAm: "",
@@ -141,7 +140,7 @@ $("table").on('click', '.saveBtn button', function (event) {
   });
 
 
-  function wakeUp() {
+  function wakeUp() { // to get the text into the text area when refreshing the page
       
       var obj = JSON.parse(localStorage.getItem("planner"));
       
